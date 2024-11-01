@@ -20,12 +20,10 @@ class Directory(Node):
     def rename(self, new_name: str) -> None:
         super().rename(new_name)
     
-    
     def add_child(self, child: 'Node') -> None:
         """
         Add a child node to the current node
         """
-
         self.children.append(child)
         child.parent = self
 
@@ -33,7 +31,6 @@ class Directory(Node):
         """
         Remove a child node from the current node
         """
-
         self.children.remove(child)
         child.parent = None
     
@@ -41,5 +38,5 @@ class Directory(Node):
         """
         List the children of the current node
         """
-
         return self.children
+
