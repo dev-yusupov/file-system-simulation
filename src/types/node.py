@@ -67,7 +67,7 @@ class Node:
 
         current_node: Optional["Node"] = self
 
-        while current_node is not None:
+        while current_node.parent is not None:
             path.insert(0, current_node.name)
             current_node = current_node.parent
 
