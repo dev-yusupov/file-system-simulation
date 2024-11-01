@@ -1,5 +1,6 @@
 from src.types import Directory, File
 
+
 class FileSystem:
     def __init__(self):
         self.root = Directory("/root", None)
