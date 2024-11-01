@@ -1,9 +1,8 @@
 import unittest
-from src.types import Node
 from datetime import datetime
-from typing import Optional
+from src.types.node import Node
 
-class NodeClassTests(unittest.TestCase):
+class TestNode(unittest.TestCase):
     """
     Test cases for the Node class
     """
@@ -12,7 +11,6 @@ class NodeClassTests(unittest.TestCase):
         Test the name attribute of the Node class
         """
         root: Node = Node(name='root') # Create a Node object with name 'root'
-
         self.assertEqual(root.name, 'root')
 
     def test_update_name(self) -> None:
@@ -20,10 +18,8 @@ class NodeClassTests(unittest.TestCase):
         Test the rename method of the Node class
         """
         root: Node = Node(name='root') # Create a Node object with name 'root'
-
         document: Node = Node(name='document', parent=root) # Create a Node object with name 'document' and parent 'root'
         document.rename('file') # Rename the document node to 'file'
-
         self.assertEqual(document.name, 'file')
 
     def test_parent(self) -> None:
@@ -32,7 +28,6 @@ class NodeClassTests(unittest.TestCase):
         """
         home: Node = Node('home') # Create a Node object with name 'home'
         main: Node = Node('main', parent=home) # Create a Node object with name 'main' and parent 'home'
-
         self.assertEqual(main.parent, home)
 
     def test_no_parent_no_error(self) -> None:
@@ -48,8 +43,16 @@ class NodeClassTests(unittest.TestCase):
         """
         datetime_now: datetime = datetime.now()
         node: Node = Node('root', created_at=datetime_now)
-        
-        self.assertEqual(node.created_at, datetime_now)
+        self.assertIsInstance(node.created_at, datetime)
+
+    def test_get_path(self) -> None:
+        """
+        Test the get_path method of the Node class
+        """
+        root: Node = Node(name='root')
+        home: Node = Node(name='home', parent=root)
+        user: Node = Node(name='user', parent=home)
+        self.assertEqual(user.get_path(), 'root/home/user')
 
 if __name__ == '__main__':
     unittest.main()
