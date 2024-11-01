@@ -1,4 +1,4 @@
-# CLI-Based File System Explorer Documentation
+# CLI-Based File System Documentation
 
 ## Overview
 
@@ -6,8 +6,8 @@ This project simulates a basic file system in a command-line interface (CLI) env
 
 ## Features
 
-- Create and delete directories
-- Create and delete files
+- Create, delete and rename directories
+- Create, rename and delete files
 - Navigate through directories
 - List contents of the current directory
 - Move files and directories
@@ -15,13 +15,13 @@ This project simulates a basic file system in a command-line interface (CLI) env
 
 ## Requirements
 
-- Python 3.x
+- Python 3.10+
 - No external libraries are required
 
 ## Running CLI Application
 
 ```bash
-python file_sys.py
+python run.py
 ```
 
 ## Usage
@@ -37,19 +37,19 @@ Example: `cd Documents`
 Example: `mkdir Projects`
 
 - `touch <file>`: Create a new file with the specified name in the current directory.
-Example: touch notes.txt
+Example: `touch notes.txt`
 
 - `rm <file/directory>`: Remove the specified file or directory from the current directory.
-Example: rm old_notes.txt
+Example: `rm old_notes.txt`
 
 - `ls`: List all files and directories in the current directory.
-Example: ls
+Example: `ls`
 
 - `mv <source> <destination>`: Move a file or directory from the source to the destination.
 Example: mv notes.txt Archive
 
-- exit: Exit the file system simulation.
-Example: exit
+- `exit`: Exit the file system simulation.
+Example: `exit`
 
 ### Example Session
 
@@ -87,8 +87,8 @@ Documents $ exit
   - `updated_at`: Timestamp of last update.
 
 - **Methods**:
-  - rename(new_name): Renames the node.
-  - get_path(): Returns the full path of the node.
+  - `rename(new_name)`: Renames the node.
+  - `get_path()`: Returns the full path of the node.
 
 #### 2. File
 
@@ -124,6 +124,10 @@ Documents $ exit
   - `delete_node(name)`: Deletes a file or directory.
   - `move_node(source_name, dest_dir_name)`: Moves a file or directory.
   - `list_contents()`: Lists contents of the current directory.
+
+#### File system structure
+
+In file system structure there is a `/root` directory which acts as a base directory. You can create your prefered folders in root. For example `Desktop`, `Media`, `Projects` and other folders.
 
 #### Command Handling
 
