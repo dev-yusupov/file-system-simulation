@@ -76,6 +76,7 @@ class FileSystemCLI:
         exit()
 
     def run(self):
+        print("Welcome to the FileSystem CLI. v1.0.0\n")
         while True:
             command_input = input("fs> ").strip().split()
             if not command_input:
