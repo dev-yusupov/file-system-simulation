@@ -1,5 +1,6 @@
 from src.root import FileSystem
 
+
 class FileSystemCLI:
     def __init__(self):
         self.fs = FileSystem()
@@ -84,7 +85,10 @@ class FileSystemCLI:
             if command in self.commands:
                 self.commands[command](args)
             else:
-                print(f"Unknown command: {command}. Type 'help' for a list of commands.")
+                print(
+                    f"Unknown command: {command}. Type 'help' for a list of commands."
+                )
+
 
 if __name__ == "__main__":
     FileSystemCLI().run()
