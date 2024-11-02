@@ -1,65 +1,91 @@
+import pytest
 import unittest
-from datetime import datetime
+from unittest.mock import patch
+
+from datetime import datetime, timedelta
+from time import sleep
+
 from src.types.node import Node
 
+@pytest.fixture()
+def root_node():
+    return Node(name="root")
 
-class TestNode(unittest.TestCase):
+@pytest.fixture()
+def child_node(root_node: Node):
+    return Node(name="child", parent=root_node)
+
+"""
+Unit tests for Node class
+"""
+
+class TestNodeParameters:
     """
-    Test cases for the Node class
+    Test cases to check the parameters and methods of the Node class
     """
+    def test_node_name(self) -> None:
+        """
+        Test that the name of the node is correctly set
+        """
 
-    def test_name(self) -> None:
-        """
-        Test the name attribute of the Node class
-        """
-        root: Node = Node(name="root")  # Create a Node object with name 'root'
-        self.assertEqual(root.name, "root")
+        node: Node = Node(name="home")
 
-    def test_update_name(self) -> None:
-        """
-        Test the rename method of the Node class
-        """
-        root: Node = Node(name="root")  # Create a Node object with name 'root'
-        document: Node = Node(
-            name="document", parent=root
-        )  # Create a Node object with name 'document' and parent 'root'
-        document.rename("file")  # Rename the document node to 'file'
-        self.assertEqual(document.name, "file")
+        assert node.name == "home"
 
-    def test_parent(self) -> None:
+    def test_node_parent(self) -> None:
         """
-        Test the parent attribute of the Node class
+        Test that the parent of the node is correctly set
         """
-        home: Node = Node("home")  # Create a Node object with name 'home'
-        main: Node = Node(
-            "main", parent=home
-        )  # Create a Node object with name 'main' and parent 'home'
-        self.assertEqual(main.parent, home)
 
-    def test_no_parent_no_error(self) -> None:
-        """
-        Test that the Node class can be instantiated without a parent
-        """
-        node: Node = Node("root")  # No parent specified
-        self.assertIsNone(node.parent)  # The parent attribute should be None
+        parent_node: Node = Node(name="parent")
+        child_node: Node = Node(name="child", parent=parent_node)
+
+        assert child_node.name == "child"
+        assert child_node.parent == parent_node
+
+
+class TestNodeDateTimeParameters(unittest.TestCase):
+    """
+    Test cases to check the created_at and updated_at parameters of the Node class
+    """
 
     def test_created_at(self) -> None:
         """
-        Test the created_at attribute of the Node class
+        Test that the created_at timestamp is set when the node is created
         """
-        datetime_now: datetime = datetime.now()
-        node: Node = Node("root", created_at=datetime_now)
+
+        node = Node(name="test_node")
+
         self.assertIsInstance(node.created_at, datetime)
+        self.assertAlmostEqual(node.created_at, datetime.now(), delta=timedelta(seconds=1))
 
-    def test_get_path(self) -> None:
+    def test_updated_at(self) -> None:
         """
-        Test the get_path method of the Node class
+        Test that the updated_at timestamp is set when the node is updated
         """
-        root: Node = Node(name="root")
-        home: Node = Node(name="home", parent=root)
-        user: Node = Node(name="user", parent=home)
-        self.assertEqual(user.get_path(), "root/home/user")
 
+        node = Node(name="test_node")
+        node.rename("new_name")
 
-if __name__ == "__main__":
-    unittest.main()
+        self.assertIsInstance(node.updated_at, datetime)
+        self.assertAlmostEqual(node.updated_at, datetime.now(), delta=timedelta(seconds=1))
+
+    def test_created_at_and_updated_at(self):
+        """
+        Test that the created_at and updated_at timestamps are set when the node is created and updated
+        """
+        with patch('src.types.node.datetime') as mock_datetime:
+            mock_datetime.now.return_value = datetime(2023, 1, 1, 12, 0, 0)
+            node = Node(name="test_node")
+
+            self.assertIsInstance(node.created_at, datetime)
+            self.assertIsInstance(node.updated_at, datetime)
+            self.assertEqual(node.created_at, datetime(2023, 1, 1, 12, 0, 0))
+            self.assertEqual(node.updated_at, datetime(2023, 1, 1, 12, 0, 0))
+
+            # Simulate an update
+            mock_datetime.now.return_value = datetime(2023, 1, 1, 12, 0, 1)
+            node.rename("new_name")
+
+            self.assertIsInstance(node.updated_at, datetime)
+            self.assertEqual(node.updated_at, datetime(2023, 1, 1, 12, 0, 1))

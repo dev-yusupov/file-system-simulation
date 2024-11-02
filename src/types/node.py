@@ -37,7 +37,9 @@ class Node:
         self.created_at: datetime = (
             created_at if created_at is not None else datetime.now()
         )
-        self.updated_at: Optional[datetime] = updated_at
+        self.updated_at: datetime = (
+            updated_at if updated_at is not None else datetime.now()
+        )
 
     def __repr__(self) -> str:
         """
@@ -46,18 +48,15 @@ class Node:
         :return: A string representation of the Node object
         """
 
-        return f"Node(name={self.name}, parent={self.parent}, \
-                created_at={self.created_at}, updated_at={self.updated_at})"
+        return f"Node(name={self.name}, parent={self.parent}, created_at={self.created_at}, updated_at={self.updated_at})"
 
     def rename(self, new_name: str) -> None:
         """
         Rename the node object
         """
-
+        
         self.name = new_name  # Update the name of the node
-        self.updated_at = (
-            datetime.now()
-        )  # Update the timestamp for when the node was last updated
+        self.updated_at = datetime.now()  # Update the timestamp for when the node was last updated
 
     def get_path(self) -> str:
         """
