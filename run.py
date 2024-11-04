@@ -1,4 +1,5 @@
 from src.root import FileSystem
+from src.utils import exceptions
 
 
 class FileSystemCLI:
@@ -78,7 +79,8 @@ class FileSystemCLI:
     def run(self):
         print("Welcome to the FileSystem CLI. v1.0.0\n")
         while True:
-            command_input = input("fs> ").strip().split()
+            current_path = self.fs.get_current_path()
+            command_input = input(f"{current_path} $ ").strip().split()
             if not command_input:
                 continue
             command = command_input[0]
@@ -86,9 +88,12 @@ class FileSystemCLI:
             if command in self.commands:
                 self.commands[command](args)
             else:
-                print(
-                    f"Unknown command: {command}. Type 'help' for a list of commands."
-                )
+                try:
+                    raise exceptions.UnknownCommandError(
+                        f"Unknown command: {command}. Type 'help' for a list of commands."
+                    )
+                except exceptions.UnknownCommandError as e:
+                    print(e)
 
 
 if __name__ == "__main__":

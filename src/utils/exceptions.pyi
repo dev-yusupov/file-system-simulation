@@ -31,3 +31,10 @@ class DirectoryExistsError(FileSystemError):
     Raised when a directory already exists.
     """
     pass
+
+
+class UnknownCommandError(FileSystemError):
+    """
+    Raised when an unknown command is encountered.
+    """
+    pass
