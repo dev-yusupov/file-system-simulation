@@ -1,6 +1,7 @@
 from src.root import FileSystem
 from src.utils import exceptions
 
+
 class FileSystemCLI:
     def __init__(self):
         self.fs = FileSystem()
@@ -93,7 +94,6 @@ class FileSystemCLI:
                     )
                 except exceptions.UnknownCommandError as e:
                     print(e)
-            
 
 
 if __name__ == "__main__":

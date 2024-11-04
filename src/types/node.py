@@ -48,13 +48,14 @@ class Node:
         :return: A string representation of the Node object
         """
 
-        return f"Node(name={self.name}, parent={self.parent}, created_at={self.created_at}, updated_at={self.updated_at})"
+        return f"Node(name={self.name}, parent={self.parent}, created_at={self.created_at}, \
+            updated_at={self.updated_at})"
 
     def rename(self, new_name: str) -> None:
         """
         Rename the node object
         """
-        
+
         self.name = new_name  # Update the name of the node
         self.updated_at = datetime.now()  # Update the timestamp for when the node was last updated
 

@@ -3,21 +3,24 @@ import unittest
 from unittest.mock import patch
 
 from datetime import datetime, timedelta
-from time import sleep
 
 from src.types.node import Node
+
 
 @pytest.fixture()
 def root_node():
     return Node(name="root")
 
+
 @pytest.fixture()
 def child_node(root_node: Node):
     return Node(name="child", parent=root_node)
 
+
 """
 Unit tests for Node class
 """
+
 
 class TestNodeParameters:
     """

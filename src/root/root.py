@@ -27,10 +27,12 @@ class FileSystem:
             if child.name == name and isinstance(child, Directory):
                 print(f"Directory '{name}' already exists.")
                 return None
-            
+
         new_directory = Directory(name=name, parent=self.current)
         self.current.add_child(new_directory)
         print(f"Directory '{name}' created.")
+
+        return new_directory
 
     def touch(self, name: str) -> Optional[File]:
         for child in self.current.children:
@@ -48,7 +50,7 @@ class FileSystem:
         """
         for child in self.current.children:
             if child.name == name and isinstance(child, File):
-                return child.read()
+                return child.read_content()
         raise FileNotFoundError(f"File '{name}' not found")
 
     def rm(self, name: str) -> None:
@@ -63,7 +65,7 @@ class FileSystem:
 
     def find(self, name):
         pass
-    
+
     def get_current_path(self) -> str:
         return self.current.get_path()
 
