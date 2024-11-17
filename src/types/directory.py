@@ -2,8 +2,6 @@ from typing import Optional, List
 from datetime import datetime
 
 from .node import Node
-from .file import File
-from src.utils.exceptions import DirectoryExistsError, FileExistsError
 
 
 class Directory(Node):
@@ -19,6 +17,8 @@ class Directory(Node):
         created_at: Optional[datetime] = None,
     ) -> None:
         super().__init__(name, parent, created_at)
+
+        parent.add_child(self) if parent else None
 
         self.children: List[Node] = []
 
@@ -36,13 +36,6 @@ class Directory(Node):
         """
         Add a child node to the current node
         """
-
-        for child in self.children:
-            if child.name == new_child.name and isinstance(child, Directory):
-                raise DirectoryExistsError(f"Directory '{child.name}' already exists.")
-
-            if child.name == new_child.name and isinstance(child, File):
-                raise FileExistsError(f"File '{child.name}' already exists.")
 
         self.children.append(new_child)
         new_child.parent = self

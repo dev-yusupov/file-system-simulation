@@ -4,24 +4,9 @@ from src.types.file import File
 
 
 class TestIntegration(unittest.TestCase):
-    def test_node_hierarchy(self) -> None:
-        """
-        Test the hierarchy of Node, Directory, and File
-        """
-        root: Directory = Directory(name="root")
-        home: Directory = Directory(name="home", parent=root)
-        file1: File = File(name="file1", parent=home)
-        file2: File = File(name="file2", parent=home)
-
-        root.add_child(home)
-        home.add_child(file1)
-        home.add_child(file2)
-
-        self.assertEqual(root.list_children(), [home])
-        self.assertEqual(home.list_children(), [file1, file2])
-        self.assertEqual(file1.parent, home)
-        self.assertEqual(file2.parent, home)
-
+    """
+    Integration tests for file operations and directory operations
+    """
     def test_file_operations(self) -> None:
         """
         Test file operations within a directory

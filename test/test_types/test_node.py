@@ -26,6 +26,7 @@ class TestNodeParameters:
     """
     Test cases to check the parameters and methods of the Node class
     """
+
     def test_node_name(self) -> None:
         """
         Test that the name of the node is correctly set
@@ -60,7 +61,9 @@ class TestNodeDateTimeParameters(unittest.TestCase):
         node = Node(name="test_node")
 
         self.assertIsInstance(node.created_at, datetime)
-        self.assertAlmostEqual(node.created_at, datetime.now(), delta=timedelta(seconds=1))
+        self.assertAlmostEqual(
+            node.created_at, datetime.now(), delta=timedelta(seconds=1)
+        )
 
     def test_updated_at(self) -> None:
         """
@@ -71,13 +74,15 @@ class TestNodeDateTimeParameters(unittest.TestCase):
         node.rename("new_name")
 
         self.assertIsInstance(node.updated_at, datetime)
-        self.assertAlmostEqual(node.updated_at, datetime.now(), delta=timedelta(seconds=1))
+        self.assertAlmostEqual(
+            node.updated_at, datetime.now(), delta=timedelta(seconds=1)
+        )
 
     def test_created_at_and_updated_at(self):
         """
         Test that the created_at and updated_at timestamps are set when the node is created and updated
         """
-        with patch('src.types.node.datetime') as mock_datetime:
+        with patch("src.types.node.datetime") as mock_datetime:
             mock_datetime.now.return_value = datetime(2023, 1, 1, 12, 0, 0)
             node = Node(name="test_node")
 

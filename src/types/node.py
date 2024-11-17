@@ -57,7 +57,9 @@ class Node:
         """
 
         self.name = new_name  # Update the name of the node
-        self.updated_at = datetime.now()  # Update the timestamp for when the node was last updated
+        self.updated_at = (
+            datetime.now()
+        )  # Update the timestamp for when the node was last updated
 
     def get_path(self) -> str:
         """
