@@ -1,6 +1,6 @@
 from typing import List, Optional, TYPE_CHECKING
 
-from src.types import Node
+from src.types import Node, Directory, File
 from src.root.config import logger
 
 if TYPE_CHECKING:

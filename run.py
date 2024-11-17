@@ -29,7 +29,6 @@ class FileSystemCLI:
         if args:
             file_name = args[0]
             self.fs.touch(file_name)
-            logger.info(f"File '{file_name}' created.")
         else:
             logger.error("Usage: touch <file_name>")
 
