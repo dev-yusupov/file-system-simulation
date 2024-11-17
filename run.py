@@ -1,6 +1,8 @@
 from src.root import FileSystem
 from src.utils import exceptions
 
+from src.root.config import logger
+
 
 class FileSystemCLI:
     def __init__(self):
@@ -20,64 +22,63 @@ class FileSystemCLI:
         if args:
             dir_name = args[0]
             self.fs.mkdir(dir_name)
-            print(f"Directory '{dir_name}' created.")
         else:
-            print("Usage: mkdir <directory_name>")
+            logger.error("Usage: mkdir <directory_name>")
 
     def make_file(self, args):
         if args:
             file_name = args[0]
             self.fs.touch(file_name)
-            print(f"File '{file_name}' created.")
+            logger.info(f"File '{file_name}' created.")
         else:
-            print("Usage: touch <file_name>")
+            logger.error("Usage: touch <file_name>")
 
     def change_directory(self, args):
         if args:
             dir_name = args[0]
             self.fs.cd(dir_name)
-            print(f"Changed directory to '{dir_name}'.")
+            logger.info(f"Changed directory to '{dir_name}'.")
         else:
-            print("Usage: cd <directory_name>")
+            logger.error("Usage: cd <directory_name>")
 
     def list_contents(self, args):
         contents = self.fs.ls()
         for node in contents:
-            print(node.name)
+            logger.info(node.name)
 
     def delete_node(self, args):
         if args:
             node_name = args[0]
             try:
                 self.fs.rm(node_name)
-                print(f"Node '{node_name}' deleted.")
+                logger.info(f"Node '{node_name}' deleted.")
             except FileNotFoundError as e:
-                print(e)
+                logger.error(e)
         else:
-            print("Usage: rm <node_name>")
+            logger.error("Usage: rm <node_name>")
 
     def move_node(self, args):
         if len(args) == 2:
             src_name, dest_name = args
             try:
                 self.fs.mv(src_name, dest_name)
-                print(f"Moved '{src_name}' to '{dest_name}'.")
+                logger.info(f"Moved '{src_name}' to '{dest_name}'.")
             except FileNotFoundError as e:
-                print(e)
+                logger.error(e)
         else:
-            print("Usage: mv <source> <destination>")
+            logger.error("Usage: mv <source> <destination>")
 
     def show_help(self, args):
-        print("Available commands:")
+        logger.info("Available commands:")
         for command in self.commands:
-            print(command)
+            logger.info(command)
 
     def exit_cli(self, args):
-        print("Exiting CLI.")
+        logger.info("Exiting CLI.")
         exit()
 
     def run(self):
-        print("Welcome to the FileSystem CLI. v1.0.0\n")
+        logger.info("Welcome to the FileSystem CLI. v1.0.0\n")
         while True:
             current_path = self.fs.get_current_path()
             command_input = input(f"{current_path} $ ").strip().split()
@@ -93,7 +94,7 @@ class FileSystemCLI:
                         f"Unknown command: {command}. Type 'help' for a list of commands."
                     )
                 except exceptions.UnknownCommandError as e:
-                    print(e)
+                    logger.error(e)
 
 
 if __name__ == "__main__":

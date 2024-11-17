@@ -1,6 +1,7 @@
 import unittest
 
-from src.types import Directory
+from src.types import Directory, File
+from src.utils.exceptions import DirectoryExistsError, FileExistsError
 
 
 class TestDirectory(unittest.TestCase):
@@ -35,6 +36,10 @@ class TestDirectory(unittest.TestCase):
         root.add_child(child)
         self.assertIn(child, root.children)
         self.assertEqual(child.parent, root)
+
+        # Test adding a file that already exists
+        file: File = File(name="file")
+        root.add_child(file)
 
     def test_remove_child(self) -> None:
         """

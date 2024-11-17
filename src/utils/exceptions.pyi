@@ -2,39 +2,40 @@ class FileSystemError(Exception):
     """
     Base class for file system errors.
     """
-    pass
 
+    pass
 
 class FileNotFoundError(FileSystemError):
     """
     Raised when a file is not found.
     """
-    pass
 
+    pass
 
 class DirectoryNotFoundError(FileSystemError):
     """
     Raised when a directory is not found.
     """
-    pass
 
+    pass
 
 class FileExistsError(FileSystemError):
     """
     Raised when a file already exists.
     """
-    pass
 
+    pass
 
 class DirectoryExistsError(FileSystemError):
     """
     Raised when a directory already exists.
     """
-    pass
 
+    pass
 
 class UnknownCommandError(FileSystemError):
     """
     Raised when an unknown command is encountered.
     """
+
     pass
