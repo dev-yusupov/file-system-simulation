@@ -1,11 +1,7 @@
-from typing import List, Optional, TYPE_CHECKING
+from typing import List, Optional
 
-from src.types import Node
+from src.types import Node, Directory, File
 from src.root.config import logger
-
-if TYPE_CHECKING:
-    from src.types.directory import Directory
-    from src.types.file import File
 
 
 class FileSystem:
