@@ -44,7 +44,7 @@ python run.py
 ### Creating a Directory
 
 ```powershell
-mkdir name_of_dir
+/root $ mkdir name_of_dir
 ```
 
 ### Creating a File
