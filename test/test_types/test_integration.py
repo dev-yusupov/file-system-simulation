@@ -4,8 +4,9 @@ from src.types.file import File
 
 
 class TestIntegration(unittest.TestCase):
-
-
+    """
+    Integration tests for file operations and directory operations
+    """
     def test_file_operations(self) -> None:
         """
         Test file operations within a directory

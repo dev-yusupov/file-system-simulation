@@ -2,9 +2,7 @@ from typing import Optional, List
 from datetime import datetime
 
 from .node import Node
-from .file import File
 
-from src.utils.exceptions import DirectoryExistsError, FileExistsError
 
 class Directory(Node):
     """

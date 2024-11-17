@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from src.types.directory import Directory
     from src.types.file import File
 
+
 class FileSystem:
     def __init__(self):
         self.root = Directory("/root", None)

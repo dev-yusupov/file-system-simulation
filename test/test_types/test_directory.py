@@ -1,7 +1,6 @@
 import unittest
 
 from src.types import Directory, File
-from src.utils.exceptions import DirectoryExistsError, FileExistsError
 
 
 class TestDirectory(unittest.TestCase):
